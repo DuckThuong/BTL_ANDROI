@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "279190910585",
+    "project_id": "btl-andnc-quanlydatdoan",
+    "storage_bucket": "btl-andnc-quanlydatdoan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279190910585:android:5878d854b7e51d2aaf06a8",
+        "android_client_info": {
+          "package_name": "com.example.btl_andnc_quanlydatdoan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhhr0MK94_1Us7Di759UxHucJ_KHRGn18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
