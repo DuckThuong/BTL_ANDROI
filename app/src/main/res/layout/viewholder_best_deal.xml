@@ -80,7 +80,7 @@
                 android:id="@+id/timeTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Time"
+                android:text="Thời gian"
                 app:layout_constraintBottom_toBottomOf="@+id/starTxt"
                 app:layout_constraintEnd_toStartOf="@+id/textView13"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"

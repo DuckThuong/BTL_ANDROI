@@ -42,40 +42,31 @@ public class DetailActivity extends BaseActivity {
                 .load(object.getImagePath())
                 .into(binding.pic);
 
-        binding.priceTxt.setText("$"+object.getPrice());
+        binding.priceTxt.setText(Math.round(object.getPrice())+".000 vnd");
         binding.titleTxt.setText(object.getTitle());
         binding.descriptionTxt.setText(object.getDescription());
-        binding.rateTxt.setText(object.getStar()+" Rating");
+        binding.rateTxt.setText(object.getStar()+" sao");
         binding.ratingBar.setRating((float)object.getStar());
-        binding.totalTxt.setText(num*object.getPrice()+"$");
+        binding.totalTxt.setText(num*Math.round(object.getPrice())+".000 vnd");
 
-        binding.plusBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                num = num+1;
+        binding.plusBtn.setOnClickListener(view -> {
+            num = num+1;
+            binding.numTxt.setText(num+"");
+            binding.totalTxt.setText((num*Math.round(object.getPrice()) + ".000 vnd"));
+        });
+
+        binding.minusBtn.setOnClickListener(view -> {
+            if(num>1)
+            {
+                num = num-1;
                 binding.numTxt.setText(num+"");
-                binding.totalTxt.setText("$"+(num*object.getPrice()));
+                binding.totalTxt.setText((num*Math.round(object.getPrice()) + ".000 vnd"));
             }
         });
 
-        binding.minusBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(num>1)
-                {
-                    num = num+1;
-                    binding.numTxt.setText(num+"");
-                    binding.totalTxt.setText("$"+(num*object.getPrice()));
-                }
-            }
-        });
-
-        binding.addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                object.setNumberInCart(num);
-                managementCart.insertFood(object);
-            }
+        binding.addBtn.setOnClickListener(view -> {
+            object.setNumberInCart(num);
+            managementCart.insertFood(object);
         });
     }
 

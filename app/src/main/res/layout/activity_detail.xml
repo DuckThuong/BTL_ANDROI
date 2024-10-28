@@ -39,6 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/favorite_white" />
 
                 <ImageView
@@ -107,7 +108,7 @@
                     android:id="@+id/rateTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="5 Rating"
+                    android:text="5 sao"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ratingBar"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -126,7 +127,8 @@
                     android:id="@+id/timeTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15 min"
+                    android:text="15 phút
+"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imageView12"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -138,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Details"
+                android:text="Giới thiệu"
                 android:textColor="@color/blue_grey"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -165,7 +167,7 @@ Từ đó pizza nhanh chóng trở thành món ăn nhanh được nhiều ngư�
                     android:id="@+id/textView17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quanity"
+                    android:text="Số lượng"
                     android:textColor="@color/blue_grey"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -235,7 +237,7 @@ Từ đó pizza nhanh chóng trở thành món ăn nhanh được nhiều ngư�
             android:background="@drawable/red_button_background"
             android:drawableStart="@drawable/cart"
             android:paddingStart="16dp"
-            android:text="Add to cart"
+            android:text="Thêm vào giỏ "
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -247,7 +249,7 @@ Từ đó pizza nhanh chóng trở thành món ăn nhanh được nhiều ngư�
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="Total Price"
+            android:text="Tổng giá"
             android:textColor="@color/blue_grey"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"

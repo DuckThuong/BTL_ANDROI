@@ -34,7 +34,7 @@ public class ManagementCart {
             listpop.add(item);
         }
         tinyDB.putListObject("CartList",listpop);
-        Toast.makeText(context, "Added to your Cart", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Đã thêm vào giỏ", Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<Foods> getListCart() {

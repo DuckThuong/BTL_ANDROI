@@ -40,8 +40,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewho
     @Override
     public void onBindViewHolder(@NonNull FoodListAdapter.viewholder holder, int position) {
         holder.titleTxt.setText(items.get(position).getTitle());
-        holder.timeTxt.setText(items.get(position).getTimeValue()+"min");
-        holder.priceTxt.setText("$" + items.get(position).getPrice());
+        holder.timeTxt.setText(items.get(position).getTimeValue()+"phút");
+        holder.priceTxt.setText(Math.round(items.get(position).getPrice()) + ".000 vnd");
         holder.rateTxt.setText(""+items.get(position).getStar());
 
         Glide.with(context)
