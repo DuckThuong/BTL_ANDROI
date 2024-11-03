@@ -65,8 +65,8 @@ public class BestFoodsAdapter extends RecyclerView.Adapter<BestFoodsAdapter.view
         ImageView pic;
         public viewholder(@NonNull View itemView) {
             super(itemView);
-            priceTxt = itemView.findViewById(R.id.priceTxt);
-            titleTxt = itemView.findViewById(R.id.titleTxt);
+            priceTxt = itemView.findViewById(R.id.orderDate);
+            titleTxt = itemView.findViewById(R.id.orderId);
             starTxt = itemView.findViewById(R.id.starTxt);
             timeTxt = itemView.findViewById(R.id.timeTxt);
             pic = itemView.findViewById(R.id.pic);

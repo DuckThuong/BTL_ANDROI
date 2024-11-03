@@ -31,11 +31,7 @@ ActivityIntroBinding binding;
     private void setVariable()
     {
         binding.loginBtn.setOnClickListener(view -> {
-            if(mAuth.getCurrentUser()!= null){
-                startActivity(new Intent(IntroActivity.this, MainActivity.class));
-            }else{
-                startActivity(new Intent(IntroActivity.this, LoginActivity.class));
-            }
+            startActivity(new Intent(IntroActivity.this, LoginActivity.class));
         });
 
         binding.signupBtn.setOnClickListener(view -> {

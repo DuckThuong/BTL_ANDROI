@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import com.example.btl_andnc_quanlydatdoan.Domain.Foods;
 
+
 import java.util.ArrayList;
 
 
@@ -15,6 +16,15 @@ public class ManagementCart {
     public ManagementCart(Context context) {
         this.context = context;
         this.tinyDB=new TinyDB(context);
+    }
+
+    public double getTotalPrice(){
+        double total = 0;
+        for(Foods item: getListCart())
+        {
+            total += item.getPrice() * item.getNumberInCart();
+        }
+        return total;
     }
 
     public void insertFood(Foods item) {
@@ -62,5 +72,9 @@ public class ManagementCart {
         listItem.get(position).setNumberInCart(listItem.get(position).getNumberInCart()+1);
         tinyDB.putListObject("CartList",listItem);
         changeNumberItemsListener.change();
+    }
+
+    public void clearCart() {
+        tinyDB.putListObject("CartList",new ArrayList<Foods>());
     }
 }

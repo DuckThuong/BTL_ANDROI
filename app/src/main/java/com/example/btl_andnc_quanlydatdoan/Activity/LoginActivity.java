@@ -2,6 +2,7 @@ package com.example.btl_andnc_quanlydatdoan.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -31,6 +32,7 @@ ActivityLoginBinding binding;
 
     private void setVariable() {
         binding.LoginBtn.setOnClickListener(view -> {
+
             String email = binding.userEdt.getText().toString();
             String password = binding.passEdt.getText().toString();
 
@@ -46,6 +48,14 @@ ActivityLoginBinding binding;
             }
             else{
                 Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        binding.signupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -32,7 +32,7 @@
             app:layout_constraintTop_toBottomOf="@+id/img">
 
             <TextView
-                android:id="@+id/titleTxt"
+                android:id="@+id/orderId"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -52,8 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="time"
-                app:layout_constraintStart_toStartOf="@+id/titleTxt"
-                app:layout_constraintTop_toBottomOf="@+id/titleTxt" />
+                app:layout_constraintStart_toStartOf="@+id/orderId"
+                app:layout_constraintTop_toBottomOf="@+id/orderId" />
 
             <ImageView
                 android:id="@+id/imageView8"
@@ -67,7 +67,7 @@
                 app:srcCompat="@drawable/time" />
 
             <TextView
-                android:id="@+id/priceTxt"
+                android:id="@+id/orderDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -83,9 +83,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/priceTxt"
+                app:layout_constraintBottom_toBottomOf="@+id/orderDate"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/priceTxt"
+                app:layout_constraintTop_toTopOf="@+id/orderDate"
                 tools:srcCompat="@drawable/star" />
 
             <TextView

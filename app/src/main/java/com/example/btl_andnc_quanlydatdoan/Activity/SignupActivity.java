@@ -18,7 +18,10 @@ import com.example.btl_andnc_quanlydatdoan.R;
 import com.example.btl_andnc_quanlydatdoan.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignupActivity extends BaseActivity {
 ActivitySignupBinding binding;
@@ -34,8 +37,10 @@ ActivitySignupBinding binding;
 
     private void setVariable() {
         binding.SignupBtn.setOnClickListener(view -> {
+
             String email = binding.userEdt.getText().toString();
             String password = binding.passEdt.getText().toString();
+            String username = binding.userNameEdt.getText().toString();
 
             if(password.length()<6)
             {
@@ -45,11 +50,18 @@ ActivitySignupBinding binding;
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(SignupActivity.this, task -> {
                 if(task.isComplete())
                 {
+                    FirebaseUser user = mAuth.getCurrentUser();
+
+                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(username).build();
+
+                    user.updateProfile(profileChangeRequest);
+
                     Log.i(TAG, "onComplete: ");
-                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                    startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                 }else{
-                    Log.i(TAG,"Thất bại", task.getException());
-                    Toast.makeText(SignupActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
+                    String error = task.getException().getMessage();
+                    Toast.makeText(SignupActivity.this, "Thất bại" + error, Toast.LENGTH_SHORT).show();
                 }
             });
         });

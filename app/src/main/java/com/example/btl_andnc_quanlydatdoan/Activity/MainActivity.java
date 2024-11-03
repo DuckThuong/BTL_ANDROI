@@ -38,6 +38,8 @@ public class MainActivity extends BaseActivity {
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
 
+    binding.userNameEdt.setText(mAuth.getCurrentUser().getDisplayName());
+
     initLocation();
     initTime();
     initPrice();

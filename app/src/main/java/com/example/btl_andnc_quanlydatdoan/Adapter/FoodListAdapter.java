@@ -2,7 +2,6 @@ package com.example.btl_andnc_quanlydatdoan.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,8 +67,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.viewho
         public viewholder(@NonNull View itemView) {
             super(itemView);
 
-            titleTxt = itemView.findViewById(R.id.titleTxt);
-            priceTxt = itemView.findViewById(R.id.priceTxt);
+            titleTxt = itemView.findViewById(R.id.orderId);
+            priceTxt = itemView.findViewById(R.id.orderDate);
             timeTxt = itemView.findViewById(R.id.timeTxt);
             pic = itemView.findViewById(R.id.img);
             rateTxt = itemView.findViewById(R.id.rateTxt);
