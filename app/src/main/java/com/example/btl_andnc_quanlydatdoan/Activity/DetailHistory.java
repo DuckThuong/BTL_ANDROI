@@ -1,0 +1,41 @@
+package com.example.btl_andnc_quanlydatdoan.Activity;
+
+import android.os.Bundle;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.example.btl_andnc_quanlydatdoan.Adapter.DetailHistoryAdapter;
+import com.example.btl_andnc_quanlydatdoan.Domain.Foods;
+import com.example.btl_andnc_quanlydatdoan.databinding.ActivityDetailHistoryBinding;
+
+import java.util.ArrayList;
+
+public class DetailHistory extends BaseActivity {
+
+    private ArrayList<Foods> foodsList = new ArrayList<>();
+    private ActivityDetailHistoryBinding binding;
+    private DetailHistoryAdapter adapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityDetailHistoryBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        setVariable();
+        initList();
+    }
+
+    private void setVariable() {
+        binding.backBtn.setOnClickListener(v -> finish());
+    }
+
+    private void initList() {
+
+            foodsList = (ArrayList<Foods>) getIntent().getSerializableExtra("Items");
+            adapter = new DetailHistoryAdapter(foodsList);
+
+            binding.cardView.setLayoutManager(new LinearLayoutManager(this));
+            binding.cardView.setAdapter(adapter);
+    }
+}

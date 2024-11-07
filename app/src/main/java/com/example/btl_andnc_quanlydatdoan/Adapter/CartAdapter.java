@@ -75,7 +75,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.viewholder> {
         public viewholder(@NonNull View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.orderId);
+            title = itemView.findViewById(R.id.titleTxt);
             pic = itemView.findViewById(R.id.pic);
             feeEachItem = itemView.findViewById(R.id.totalPrice);
             plusItem = itemView.findViewById(R.id.plusCartBtn);

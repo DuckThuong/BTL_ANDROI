@@ -1,36 +1,25 @@
 package com.example.btl_andnc_quanlydatdoan.Activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.btl_andnc_quanlydatdoan.Adapter.CartAdapter;
-import com.example.btl_andnc_quanlydatdoan.Adapter.Orders;
+import com.example.btl_andnc_quanlydatdoan.Domain.Orders;
 import com.example.btl_andnc_quanlydatdoan.Domain.Foods;
-import com.example.btl_andnc_quanlydatdoan.R;
 import com.example.btl_andnc_quanlydatdoan.databinding.ActivityCartBinding;
 import com.example.btl_andnc_quanlydatdoan.Helper.ManagementCart;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class CartActivity extends BaseActivity{
 
@@ -64,13 +53,11 @@ public class CartActivity extends BaseActivity{
                 String userId = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
                 String orderId = FirebaseDatabase.getInstance().getReference("Orders").push().getKey();
                 ArrayList<Foods> cartItems = managementCart.getListCart();
-                long timestamp = System.currentTimeMillis();
-                Date date = new Date(timestamp);
+                int quantity=0;
 
-                Orders orders = new Orders(orderId,date , totalPrice, cartItems);
+                Orders orders = new Orders(orderId,quantity, totalPrice, cartItems);
 
                 Map<String,Object> orderData = new HashMap<>();
-                orderData.put("OrderDate", orders.getDate());
                 double totalOrderPrice = 0;
 
                 List<Map<String,Object>> foodlist = new ArrayList<>();
@@ -79,14 +66,18 @@ public class CartActivity extends BaseActivity{
                     foodData.put("FoodId", food.getId());
                     foodData.put("Title", food.getTitle());
                     foodData.put("Quantity", food.getNumberInCart());
+                    quantity += food.getNumberInCart();
+                    orders.setQuantity(quantity);
                     foodData.put("Price", food.getPrice());
                     foodData.put("TotalPrice",food.getPrice()*food.getNumberInCart());
+                    foodData.put("ImagePath", food.getImagePath());
 
                     foodlist.add(foodData);
                     totalOrderPrice += food.getPrice()*food.getNumberInCart();
                 }
 
                 orderData.put("TotalPrice", totalOrderPrice);
+                orderData.put("Quantity", quantity);
                 orderData.put("Items",foodlist);
 
                 DatabaseReference orderHistoryRef = FirebaseDatabase.getInstance()

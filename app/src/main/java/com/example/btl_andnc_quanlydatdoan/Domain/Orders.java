@@ -1,23 +1,28 @@
-package com.example.btl_andnc_quanlydatdoan.Adapter;
+package com.example.btl_andnc_quanlydatdoan.Domain;
 
-import com.example.btl_andnc_quanlydatdoan.Domain.Foods;
-
-import java.lang.reflect.Array;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Orders {
+public class Orders implements Serializable {
     private String id;
-    private Date date;
     private double totalPrice;
     ArrayList<Foods> listFood;
+    private int quantity;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     public Orders() {
     }
 
-    public Orders(String id, Date date, double totalPrice, ArrayList<Foods> listFood) {
+    public Orders(String id, int quantity, double totalPrice, ArrayList<Foods> listFood) {
         this.id = id;
-        this.date = date;
+        this.quantity = quantity;
         this.totalPrice = totalPrice;
         this.listFood = listFood;
     }
@@ -46,11 +51,4 @@ public class Orders {
         this.totalPrice = totalPrice;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }
