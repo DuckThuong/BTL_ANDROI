@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "279190910585",
+    "firebase_url": "https://btl-andnc-quanlydatdoan-default-rtdb.firebaseio.com",
     "project_id": "btl-andnc-quanlydatdoan",
     "storage_bucket": "btl-andnc-quanlydatdoan.appspot.com"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.example.btl_andnc_quanlydatdoan"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "279190910585-k90lcqsq8fid0kclmekommeacao1sad6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.btl_andnc_quanlydatdoan",
+            "certificate_hash": "f0df5d176c126f9a4bb93c9fefd06ace370875a8"
+          }
+        },
+        {
+          "client_id": "279190910585-7op7mjab3ra53l6pvpioj38fa626n0pr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAhhr0MK94_1Us7Di759UxHucJ_KHRGn18"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279190910585-0pv2jjkt5fc1iqobhktiv7m7q3vkk168.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
