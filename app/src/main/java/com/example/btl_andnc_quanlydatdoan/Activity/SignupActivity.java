@@ -36,6 +36,7 @@ ActivitySignupBinding binding;
     }
 
     private void setVariable() {
+
         binding.SignupBtn.setOnClickListener(view -> {
 
             String email = binding.userEdt.getText().toString();
@@ -64,6 +65,11 @@ ActivitySignupBinding binding;
                     Toast.makeText(SignupActivity.this, "Thất bại" + error, Toast.LENGTH_SHORT).show();
                 }
             });
+        });
+
+        binding.loginBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+            startActivity(intent);
         });
     }
 }

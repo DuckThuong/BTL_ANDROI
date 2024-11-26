@@ -82,15 +82,6 @@
                 android:textColorHint="@color/blue_grey"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Quên mật khẩu"
-                android:textAlignment="center"
-                android:textSize="16sp" />
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/LoginBtn"
                 android:layout_width="match_parent"
@@ -143,25 +134,12 @@
                 android:layout_marginEnd="32dp">
 
                 <ImageView
-                    android:id="@+id/facebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/facebook" />
-
-                <ImageView
                     android:id="@+id/googleBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/google" />
-
-                <ImageView
-                    android:id="@+id/twitter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/twitter" />
 
             </LinearLayout>
 

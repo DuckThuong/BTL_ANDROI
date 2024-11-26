@@ -2,6 +2,7 @@ package com.example.btl_andnc_quanlydatdoan.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
@@ -48,18 +50,24 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View v) {
 
                 googleSignInClient.signOut().addOnCompleteListener(task -> {
-                    Intent intent = googleSignInClient.getSignInIntent();
-                    startActivityForResult(intent, 11);
+                    if(task.isSuccessful())
+                    {
+                        Intent intent = googleSignInClient.getSignInIntent();
+                        startActivityForResult(intent, 11);
+                    }
+                    else{
+                        Log.d(TAG, "dang nhap that bai");
+                    }
                 });
-
-                Intent intent = googleSignInClient.getSignInIntent();
-                startActivityForResult(intent, 11);
             }
         });
+
         setVariable();
     }
 
     private void setVariable() {
+
+
         binding.LoginBtn.setOnClickListener(view -> {
 
             String email = binding.userEdt.getText().toString();
@@ -68,7 +76,13 @@ public class LoginActivity extends BaseActivity {
             if(!email.isEmpty() && !password.isEmpty()){
                 mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginActivity.this, task -> {
                     if(task.isSuccessful()){
+                        SharedPreferences preferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("loginMethod", "username_password");
+                        editor.apply();
+
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
                     }else{
                         Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
                         //task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -100,9 +114,26 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void handleSignin(Task<GoogleSignInAccount> task ){
-        GoogleSignInAccount account = task.getResult();
-        if(account!=null){
-            Log.d(TAG, "name" + account.getDisplayName()) ;
+        try {
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+            if (account != null) {
+                Log.d(TAG, "name: " + account.getDisplayName());
+
+                // Lưu trạng thái đăng nhập
+                SharedPreferences preferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("loginMethod", "google");
+                editor.apply();
+
+                // Chuyển đến MainActivity
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+            }
+        } catch (ApiException e) {
+            Log.w(TAG, "Lỗi đăng nhập: " + e.getStatusCode());
         }
     }
 }

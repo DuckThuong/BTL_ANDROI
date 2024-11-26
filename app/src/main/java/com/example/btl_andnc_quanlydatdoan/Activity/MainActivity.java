@@ -1,9 +1,10 @@
 package com.example.btl_andnc_quanlydatdoan.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,13 +15,12 @@ import com.example.btl_andnc_quanlydatdoan.Adapter.BestFoodsAdapter;
 import com.example.btl_andnc_quanlydatdoan.Adapter.CategoryAdapter;
 import com.example.btl_andnc_quanlydatdoan.Domain.Category;
 import com.example.btl_andnc_quanlydatdoan.Domain.Foods;
-import com.example.btl_andnc_quanlydatdoan.Domain.Location;
-import com.example.btl_andnc_quanlydatdoan.Domain.Price;
-import com.example.btl_andnc_quanlydatdoan.Domain.Time;
-import com.example.btl_andnc_quanlydatdoan.R;
+
 import com.example.btl_andnc_quanlydatdoan.databinding.ActivityMainBinding;
-import com.google.firebase.Firebase;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,11 +38,7 @@ public class MainActivity extends BaseActivity {
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
 
-    binding.userNameEdt.setText(mAuth.getCurrentUser().getDisplayName());
-
-    initLocation();
-    initTime();
-    initPrice();
+    initUser();
     initBestFood();
     initCategory();
     setVariable();
@@ -67,8 +63,36 @@ public class MainActivity extends BaseActivity {
         });
 
         binding.HistoryBtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this,OrderHistory.class)));
-
         binding.cartBtn.setOnClickListener(view -> startActivity(new Intent(MainActivity.this,CartActivity.class)));
+    }
+
+    private void initUser(){
+        LoginStatus status = checkLoginStatus();
+        String userName = "";
+
+        switch (status) {
+            case LOGGED_IN_GOOGLE:
+                GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+                if (account != null) {
+                    userName = account.getDisplayName();
+                }
+                break;
+
+            case LOGGED_IN_FIREBASE:
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    userName = user.getDisplayName();
+                    Log.d("LoginStatus", "Đăng nhập bằng Username/Password: " + user.getEmail());
+                }
+                break;
+
+            case NOT_LOGGED_IN:
+                redirectToLogin();
+                Log.d("LoginStatus", "Người dùng chưa đăng nhập.");
+                break;
+        }
+
+        binding.userNameEdt.setText(userName);
     }
 
     private void initBestFood() {
@@ -126,69 +150,4 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private void initTime() {
-        DatabaseReference myRef = database.getReference("Time");
-        ArrayList<Time> list = new ArrayList<>();
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot issue:snapshot.getChildren()){
-                        list.add(issue.getValue(Time.class));
-                    }
-                    ArrayAdapter<Time> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, list);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.locationSp.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    private void initPrice() {
-        DatabaseReference myRef = database.getReference("Price");
-        ArrayList<Price> list = new ArrayList<>();
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot issue:snapshot.getChildren()){
-                        list.add(issue.getValue(Price.class));
-                    }
-                    ArrayAdapter<Price> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, list);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.priceSp.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-    private void initLocation() {
-        DatabaseReference myRef = database.getReference("Location");
-        ArrayList<Location> list = new ArrayList<>();
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot issue:snapshot.getChildren()){
-                        list.add(issue.getValue(Location.class));
-                    }
-                    ArrayAdapter<Location> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, list);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    binding.locationSp.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
 }

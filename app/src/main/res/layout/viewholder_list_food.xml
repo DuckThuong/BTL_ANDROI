@@ -86,6 +86,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/orderDate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/orderDate"
+                app:srcCompat="@drawable/star"
                 tools:srcCompat="@drawable/star" />
 
             <TextView
