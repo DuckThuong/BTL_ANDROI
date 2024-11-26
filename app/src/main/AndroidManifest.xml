@@ -19,9 +19,6 @@
             android:name=".Activity.OrderHistory"
             android:exported="false" />
         <activity
-            android:name=".Activity.HistoryActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.CartActivity"
             android:exported="false" />
         <activity
