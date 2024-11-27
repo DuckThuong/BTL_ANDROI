@@ -37,7 +37,7 @@
             app:layout_constraintTop_toTopOf="@+id/pic" />
 
         <TextView
-            android:id="@+id/orderDate"
+            android:id="@+id/itemPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -63,7 +63,7 @@
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/pic"
-            app:layout_constraintStart_toStartOf="@+id/orderDate">
+            app:layout_constraintStart_toStartOf="@+id/itemPrice">
 
             <TextView
                 android:id="@+id/minusCartBtn"

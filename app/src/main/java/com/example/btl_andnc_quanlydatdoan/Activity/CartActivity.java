@@ -1,5 +1,6 @@
 package com.example.btl_andnc_quanlydatdoan.Activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -136,18 +137,16 @@ public class CartActivity extends BaseActivity{
         binding.cardView.setAdapter(adapter);
    }
 
+    @SuppressLint("SetTextI18n")
     private void calculateCart() {
-        double percentTax = 0.02;
-        double delivery =10;
+        double delivery =30;
 
-        tax = Math.round(managementCart.getTotalFee()*percentTax*100.0);
-        double total = Math.round((managementCart.getTotalFee()+tax+delivery)*100)/100;
-        double itemTotal = Math.round(managementCart.getTotalFee() * 100)/100;
+        double total = managementCart.getTotalFee() + delivery;
+        double itemTotal = managementCart.getTotalFee();
 
-        binding.totalFeeTxt.setText("$"+itemTotal);
-        binding.totalTxt.setText("$"+total);
-        binding.deliveryTxt.setText("$"+delivery);
-        binding.taxTxt.setText("$"+tax);
+        binding.totalFeeTxt.setText(Math.round(itemTotal)+".000 vnd");
+        binding.totalTxt.setText(Math.round(total)+".000 vnd");
+        binding.deliveryTxt.setText(Math.round(delivery)+".000 vnd");
     }
 
     private void setVariable() {

@@ -1,5 +1,6 @@
 package com.example.btl_andnc_quanlydatdoan.Activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -32,6 +33,7 @@ public class DetailActivity extends BaseActivity {
         setVariable();
     }
 
+    @SuppressLint("SetTextI18n")
     private void setVariable() {
 
         managementCart = new ManagementCart(this);

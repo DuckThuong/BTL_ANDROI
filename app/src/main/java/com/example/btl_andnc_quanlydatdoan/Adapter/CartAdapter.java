@@ -1,5 +1,6 @@
 package com.example.btl_andnc_quanlydatdoan.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.viewholder> {
     ArrayList<Foods> list;
-    private ManagementCart managementCart;
+    private final ManagementCart managementCart;
     ChangeNumberItemsListener changeNumberItemsListener;
 
     public CartAdapter(ArrayList<Foods> list, Context context, ChangeNumberItemsListener changeNumberItemsListener) {
@@ -38,12 +39,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.viewholder> {
         return new viewholder(inflate);
     }
 
+    @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.viewholder holder, int position) {
+
+        int numberItem = list.get(position).getNumberInCart();
+        int price = (int) list.get(position).getPrice();
+
         holder.title.setText(list.get(position).getTitle());
-        holder.feeEachItem.setText("$"+list.get(position).getPrice());
-        holder.totalEachItem.setText(list.get(position).getNumberInCart()+"*$"+(list.get(position).getNumberInCart()*list.get(position).getPrice()));
-        holder.num.setText(list.get(position).getNumberInCart()+"");
+        holder.itemPrice.setText(price+".000 vnd");
+        holder.totalPrice.setText(numberItem * price+".000 vnd");
+        holder.num.setText(numberItem+"");
 
         Glide.with(holder.itemView.getContext())
                 .load(list.get(position).getImagePath())
@@ -68,19 +74,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.viewholder> {
 
     public class viewholder extends RecyclerView.ViewHolder {
 
-        TextView title,feeEachItem,plusItem,minusItem;
+        TextView title,totalPrice,plusItem,minusItem;
         ImageView pic;
-        TextView totalEachItem, num;
+        TextView itemPrice, num;
 
         public viewholder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.titleTxt);
             pic = itemView.findViewById(R.id.pic);
-            feeEachItem = itemView.findViewById(R.id.totalPrice);
+            totalPrice = itemView.findViewById(R.id.totalPrice);
             plusItem = itemView.findViewById(R.id.plusCartBtn);
             minusItem = itemView.findViewById(R.id.minusCartBtn);
-            totalEachItem = itemView.findViewById(R.id.orderDate);
+            itemPrice = itemView.findViewById(R.id.itemPrice);
             num = itemView.findViewById(R.id.numberItemTxt);
         }
     }
