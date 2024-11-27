@@ -49,31 +49,8 @@ public class OrderHistory extends BaseActivity {
     }
 
     private void initUser(){
-        LoginStatus status = checkLoginStatus();
-        String userName = "";
-
-        switch (status) {
-            case LOGGED_IN_GOOGLE:
-                GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-                if (account != null) {
-                    userName = account.getDisplayName();
-                }
-                break;
-
-            case LOGGED_IN_FIREBASE:
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    userName = user.getDisplayName();
-                    Log.d("LoginStatus", "Đăng nhập bằng Username/Password: " + user.getEmail());
-                }
-                break;
-
-            case NOT_LOGGED_IN:
-                redirectToLogin();
-                Log.d("LoginStatus", "Người dùng chưa đăng nhập.");
-                break;
-        }
-
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userName = currentUser != null ? currentUser.getDisplayName() : "Guest";
         orderHistoryRef = FirebaseDatabase.getInstance().getReference("OrderHistory").child(userName);
     }
 

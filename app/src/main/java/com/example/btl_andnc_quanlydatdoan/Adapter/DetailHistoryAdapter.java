@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class DetailHistoryAdapter extends RecyclerView.Adapter<DetailHistoryAdapter.viewholder> {
     ArrayList<Foods> items;
-    Orders order;
     Context context;
 
     public DetailHistoryAdapter(ArrayList<Foods> items) {
