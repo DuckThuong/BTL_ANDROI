@@ -8,6 +8,7 @@ public class Orders implements Serializable {
     private double totalPrice;
     ArrayList<Foods> listFood;
     private int quantity;
+    private String status;
 
     public int getQuantity() {
         return quantity;
@@ -17,14 +18,12 @@ public class Orders implements Serializable {
         this.quantity = quantity;
     }
 
-    public Orders() {
-    }
-
-    public Orders(String id, int quantity, double totalPrice, ArrayList<Foods> listFood) {
+    public Orders(String id, int quantity, double totalPrice, ArrayList<Foods> listFood, String status) {
         this.id = id;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
         this.listFood = listFood;
+        this.status = status;
     }
 
     public String getId() {
@@ -51,4 +50,7 @@ public class Orders implements Serializable {
         this.totalPrice = totalPrice;
     }
 
+    public String getStatus() {
+        return status;
+    }
 }

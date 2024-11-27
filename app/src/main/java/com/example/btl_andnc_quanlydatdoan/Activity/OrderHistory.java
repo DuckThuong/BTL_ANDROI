@@ -67,9 +67,10 @@ public class OrderHistory extends BaseActivity {
                     String orderId = orderSnapshot.getKey();
                     int totalPrice = orderSnapshot.child("TotalPrice").getValue(Integer.class);
                     int quantity = orderSnapshot.child("Quantity").getValue(int.class);
+                    String orderStatus = orderSnapshot.child("Status").getValue(String.class);
                     foodList = orderSnapshot.child("Items").getValue(t);
 
-                    Orders order = new Orders(orderId,quantity , totalPrice, foodList);
+                    Orders order = new Orders(orderId,quantity , totalPrice, foodList, orderStatus);
                     ordersList.add(order);
                 }
                 adapter.notifyDataSetChanged();

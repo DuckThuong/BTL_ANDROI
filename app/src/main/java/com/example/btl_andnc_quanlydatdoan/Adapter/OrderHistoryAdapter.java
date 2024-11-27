@@ -45,6 +45,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         holder.quantityTxt.setText("Tổng sản phẩm: " +order.getQuantity());
         holder.totalPrice.setText(Math.round(order.getTotalPrice())+ ".000 vnd");
         holder.titleTxt.setText(order.getListFood().get(0).getTitle());
+        holder.status.setText(order.getStatus());
         String imagePath = order.getListFood().get(0).getImagePath();
 
         Glide.with(holder.itemView.getContext())
@@ -77,7 +78,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
     }
 
     public class viewholder extends RecyclerView.ViewHolder{
-        TextView orderId, totalPrice, titleTxt, quantityTxt;
+        TextView orderId, totalPrice, titleTxt, quantityTxt, status;
         Button btn;
         ImageView pic;
 
@@ -89,6 +90,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             titleTxt = itemView.findViewById(R.id.titleTxt);
             orderId = itemView.findViewById(R.id.orderId);
             totalPrice = itemView.findViewById(R.id.totalPrice);
+            status = itemView.findViewById(R.id.statusTxt);
         }
     }
 }

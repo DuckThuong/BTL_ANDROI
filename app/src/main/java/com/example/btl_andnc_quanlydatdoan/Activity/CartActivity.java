@@ -1,6 +1,7 @@
 package com.example.btl_andnc_quanlydatdoan.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -45,32 +46,75 @@ public class CartActivity extends BaseActivity {
         initList();
     }
 
+    private void showPaymentDialog(String userId) {
+        // Tạo AlertDialog Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Chọn phương thức thanh toán");
+
+        // Tạo danh sách các phương thức thanh toán
+        String[] paymentMethods = {"Thanh toán qua thẻ tín dụng", "Thanh toán khi nhận hàng"};
+
+        // Cài đặt danh sách phương thức thanh toán
+        builder.setItems(paymentMethods, (dialog, which) -> {
+            switch (which) {
+                case 0:
+                    // Xử lý thanh toán qua thẻ tín dụng
+                    handleOrder(userId, "Thanh toán qua thẻ tín dụng");
+                    break;
+                case 1:
+                    // Xử lý thanh toán khi nhận hàng
+                    handleOrder(userId, "Thanh toán khi nhận hàng");
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        // Tạo nút Hủy nếu người dùng không muốn chọn phương thức thanh toán
+        builder.setNegativeButton("Hủy", (dialog, which) -> {
+            // Không thực hiện đặt hàng khi bấm Hủy
+            dialog.dismiss();
+        });
+
+        // Hiển thị dialog
+        builder.show();
+    }
+
+    private void handleOrder(String userId, String paymentMethod) {
+        double totalPrice = managementCart.getTotalPrice();
+        String orderId = FirebaseDatabase.getInstance().getReference("Orders").push().getKey();
+        ArrayList<Foods> cartItems = managementCart.getListCart();
+        int quantity = 0;
+
+        String orderStatus = paymentMethod.equals("Thanh toán qua thẻ tín dụng") ? "Đã thanh toán" : "Chưa thanh toán";
+        Orders orders = new Orders(orderId, quantity, totalPrice, cartItems, orderStatus);
+
+        Map<String, Object> orderData = prepareOrderData(orders, quantity);
+        orderData.put("Status", orderStatus);
+
+        // Cập nhật trạng thái của đơn hàng dựa trên phương thức thanh toán
+
+        DatabaseReference orderHistoryRef = FirebaseDatabase.getInstance()
+                .getReference("OrderHistory");
+        orderHistoryRef.child(userId).child(orderId).setValue(orderData)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        managementCart.clearCart();
+                        showToast("Đặt hàng thành công! Phương thức thanh toán: " + paymentMethod);
+                        binding.emptyTxt.setVisibility(View.VISIBLE);
+                        binding.scrollViewCart.setVisibility(View.GONE);
+                    } else {
+                        showToast("Đặt hàng thất bại!");
+                    }
+                });
+    }
+
     private void placeOrder() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String userId = currentUser != null ? currentUser.getDisplayName() : "Guest";
 
         binding.placeOrderBtn.setOnClickListener(v -> {
-            double totalPrice = managementCart.getTotalPrice();
-            String orderId = FirebaseDatabase.getInstance().getReference("Orders").push().getKey();
-            ArrayList<Foods> cartItems = managementCart.getListCart();
-            int quantity = 0;
-
-            Orders orders = new Orders(orderId, quantity, totalPrice, cartItems);
-            Map<String, Object> orderData = prepareOrderData(orders, quantity);
-
-            DatabaseReference orderHistoryRef = FirebaseDatabase.getInstance()
-                    .getReference("OrderHistory");
-            orderHistoryRef.child(userId).child(orderId).setValue(orderData)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            managementCart.clearCart();
-                            showToast("Đặt hàng thành công!");
-                            binding.emptyTxt.setVisibility(View.VISIBLE);
-                            binding.scrollViewCart.setVisibility(View.GONE);
-                        } else {
-                            showToast("Đặt hàng thất bại!");
-                        }
-                    });
+            showPaymentDialog(userId);  // Truyền userId vào hàm showPaymentDialog
         });
     }
 
@@ -120,9 +164,9 @@ public class CartActivity extends BaseActivity {
         double total = managementCart.getTotalFee() + delivery;
         double itemTotal = managementCart.getTotalFee();
 
-        binding.totalFeeTxt.setText(Math.round(itemTotal)+".000 vnd");
-        binding.totalTxt.setText(Math.round(total)+".000 vnd");
-        binding.deliveryTxt.setText(Math.round(delivery)+".000 vnd");
+        binding.totalFeeTxt.setText(Math.round(itemTotal) + ".000 vnd");
+        binding.totalTxt.setText(Math.round(total) + ".000 vnd");
+        binding.deliveryTxt.setText(Math.round(delivery) + ".000 vnd");
     }
 
     private void showToast(String message) {
