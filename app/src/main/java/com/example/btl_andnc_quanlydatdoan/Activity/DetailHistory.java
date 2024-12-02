@@ -6,13 +6,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.btl_andnc_quanlydatdoan.Adapter.DetailHistoryAdapter;
 import com.example.btl_andnc_quanlydatdoan.Domain.Foods;
+import com.example.btl_andnc_quanlydatdoan.Domain.Orders;
 import com.example.btl_andnc_quanlydatdoan.databinding.ActivityDetailHistoryBinding;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DetailHistory extends BaseActivity {
 
     private ArrayList<Foods> foodsList = new ArrayList<>();
+    private ArrayList<Orders> orderList = new ArrayList<>();
     private ActivityDetailHistoryBinding binding;
     private DetailHistoryAdapter adapter;
 
@@ -33,6 +36,7 @@ public class DetailHistory extends BaseActivity {
     private void initList() {
 
             foodsList = (ArrayList<Foods>) getIntent().getSerializableExtra("Items");
+            //orderList = (ArrayList<Orders>) getIntent().getSerializableExtra("Orders");
             adapter = new DetailHistoryAdapter(foodsList);
 
             binding.cardView.setLayoutManager(new LinearLayoutManager(this));

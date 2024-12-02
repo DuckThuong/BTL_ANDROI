@@ -21,10 +21,12 @@ import java.util.ArrayList;
 
 public class DetailHistoryAdapter extends RecyclerView.Adapter<DetailHistoryAdapter.viewholder> {
     ArrayList<Foods> items;
+    //ArrayList<Orders> orders;
     Context context;
 
     public DetailHistoryAdapter(ArrayList<Foods> items) {
         this.items = items;
+        //this.orders = orders;
     }
 
     @NonNull
@@ -38,9 +40,10 @@ public class DetailHistoryAdapter extends RecyclerView.Adapter<DetailHistoryAdap
     @Override
     public void onBindViewHolder(@NonNull DetailHistoryAdapter.viewholder holder, int position) {
         Foods foods = items.get(position);
+        //Orders od = orders.get(position);
         holder.titleTxt.setText(foods.getTitle());
         holder.totalPriceTxt.setText(Math.round(foods.getPrice()) + ".000 vnd");
-
+        //holder.quantityTxt.setText("Số lượng: " +od.getQuantity());
         Glide.with(context)
                 .load(items.get(position).getImagePath())
                 .transform(new CenterCrop(), new RoundedCorners(30))

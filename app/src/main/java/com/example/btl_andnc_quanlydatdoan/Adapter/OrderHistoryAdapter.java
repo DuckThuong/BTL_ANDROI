@@ -67,6 +67,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailHistory.class);
                 intent.putExtra("Items",order.getListFood());
+                intent.putExtra("Orders", orderList);
                 context.startActivity(intent);
             }
         });
