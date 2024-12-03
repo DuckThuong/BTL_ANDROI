@@ -13,6 +13,9 @@
         android:theme="@style/Theme.BTL_ANDNC_QuanLyDatDoAn"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.UserActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.DetailHistory"
             android:exported="false" />
         <activity

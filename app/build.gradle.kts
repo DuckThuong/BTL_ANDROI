@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.google.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(platform(libs.firebase.bom))
+    implementation("com.google.firebase:firebase-storage:21.0.1")
 
     //Authentication with Credential Manager
     implementation(libs.play.services.auth)
